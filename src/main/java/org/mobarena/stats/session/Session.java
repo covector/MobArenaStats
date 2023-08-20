@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.Set;
 
 public class Session {
 
@@ -95,13 +96,22 @@ public class Session {
         sessionStats.lastWave = wave;
     }
 
-    public void complete() {
+    public void complete(Set<Player> survivors) {
         sessionStats.conclusion = SessionConclusion.VICTORY;
 
         for (PlayerSessionStats playerStats : playerStats.values()) {
             if (playerStats.conclusion == null) {
                 playerStats.conclusion = PlayerConclusion.VICTORY;
             }
+        }
+
+        for (Player player : survivors) {
+            UUID playerId = player.getUniqueId();
+            PlayerSessionStats stats = this.playerStats.get(playerId);
+            if (stats == null) {
+                continue;
+            }
+            stats.conclusion = PlayerConclusion.VICTORY;
         }
     }
 

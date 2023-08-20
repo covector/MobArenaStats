@@ -9,8 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mobarena.stats.MobArenaStats;
 import org.mobarena.stats.store.PlayerStats;
+import org.mobarena.stats.store.ClassStats;
 import org.mobarena.stats.store.StatsStore;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -47,7 +50,7 @@ class PlayerStatsCommandTest {
         String[] args = {};
         Messenger messenger = mock(Messenger.class);
         StatsStore store = mock(StatsStore.class);
-        PlayerStats stats = new PlayerStats(1, 2, 3, 4);
+        PlayerStats stats = new PlayerStats(1, 2, 3, 4, 5, Collections.<ClassStats>emptyList());
         when(sender.getName()).thenReturn(name);
         when(am.getGlobalMessenger()).thenReturn(messenger);
         when(plugin.getStatsStore()).thenReturn(store);
@@ -68,7 +71,7 @@ class PlayerStatsCommandTest {
         String[] args = {name};
         Messenger messenger = mock(Messenger.class);
         StatsStore store = mock(StatsStore.class);
-        PlayerStats stats = new PlayerStats(1, 2, 3, 4);
+        PlayerStats stats = new PlayerStats(1, 2, 3, 4, 5, Collections.<ClassStats>emptyList());
         when(am.getGlobalMessenger()).thenReturn(messenger);
         when(plugin.getStatsStore()).thenReturn(store);
         when(plugin.getAsyncExecutor()).thenReturn(Runnable::run);

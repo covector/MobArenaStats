@@ -158,7 +158,7 @@ public class SessionListener implements Listener {
             return;
         }
 
-        session.complete();
+        session.complete(event.getSurvivors());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

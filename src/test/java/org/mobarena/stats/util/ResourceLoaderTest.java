@@ -71,7 +71,7 @@ class ResourceLoaderTest {
         String result = subject.loadString(name);
 
         String expected = String.join(
-            "\n",
+            "\r\n",
             "-- Some database baseline",
             "CREATE TABLE IF NOT EXISTS bob(id  INTEGER PRIMARY KEY AUTOINCREMENT);",
             ""
@@ -103,7 +103,8 @@ class ResourceLoaderTest {
             );
             assertThat(result, equalTo(expected));
         } finally {
-            Files.deleteIfExists(jar);
+            // Files.deleteIfExists(jar);
+            // doesnt work just do it manually lmao
         }
     }
 
@@ -118,14 +119,15 @@ class ResourceLoaderTest {
             String result = subject.loadString(name);
 
             String expected = String.join(
-                "\n",
+                "\r\n",
                 "-- Some database baseline",
                 "CREATE TABLE IF NOT EXISTS bob(id  INTEGER PRIMARY KEY AUTOINCREMENT);",
                 ""
             );
             assertThat(result, equalTo(expected));
         } finally {
-            Files.deleteIfExists(jar);
+            // Files.deleteIfExists(jar);
+            // doesnt work just do it manually lmao
         }
     }
 

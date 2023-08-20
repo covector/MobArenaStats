@@ -13,6 +13,7 @@ import org.mobarena.stats.session.SessionStats;
 import org.mobarena.stats.store.ArenaStats;
 import org.mobarena.stats.store.GlobalStats;
 import org.mobarena.stats.store.PlayerStats;
+import org.mobarena.stats.store.ClassStats;
 import org.mobarena.stats.store.StatsStore;
 import org.mobarena.stats.util.ResourceLoader;
 
@@ -31,6 +32,7 @@ import static org.mobarena.stats.store.jdbc.Statement.FIND_PLAYER_STATS;
 import static org.mobarena.stats.store.jdbc.Statement.FIND_SESSIONS;
 import static org.mobarena.stats.store.jdbc.Statement.INSERT_PLAYER_DATA;
 import static org.mobarena.stats.store.jdbc.Statement.INSERT_SESSION_DATA;
+import static org.mobarena.stats.store.jdbc.Statement.FIND_MOST_USED_KITS;
 
 public class JdbcStatsStore implements StatsStore {
 
@@ -122,6 +124,16 @@ public class JdbcStatsStore implements StatsStore {
 
     @Override
     public PlayerStats getPlayerStats(String name) {
+        List<ClassStats> classStats = jdbi.withHandle(handle -> handle
+            .createQuery(statements.get(FIND_MOST_USED_KITS))
+            .bind("player_name", name)
+            .map((rs, ctx) -> new ClassStats(
+                rs.getString("class"),
+                rs.getInt("c")
+            ))
+            .list()
+        );
+            
         return jdbi.withHandle(handle -> handle
             .createQuery(statements.get(FIND_PLAYER_STATS))
             .bind("player_name", name)
@@ -129,7 +141,9 @@ public class JdbcStatsStore implements StatsStore {
                 rs.getInt("total_sessions"),
                 rs.getLong("total_seconds"),
                 rs.getLong("total_kills"),
-                rs.getLong("total_waves")
+                rs.getLong("total_waves"),
+                rs.getInt("total_wins"),
+                classStats
             ))
             .first()
         );

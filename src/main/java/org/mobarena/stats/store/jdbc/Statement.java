@@ -16,4 +16,5 @@ public enum Statement {
     FIND_SESSIONS,
     FIND_PLAYER_SESSIONS_BY_ID,
 
+    FIND_MOST_USED_KITS,
 }

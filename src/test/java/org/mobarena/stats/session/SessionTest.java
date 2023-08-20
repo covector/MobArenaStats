@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
+import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -249,7 +250,7 @@ class SessionTest {
 
     @Test
     void setVictoryOnComplete() {
-        subject.complete();
+        subject.complete(Collections.emptySet());
 
         SessionStats actual = subject.getSessionStats();
         assertThat(actual.conclusion, equalTo(SessionConclusion.VICTORY));
@@ -261,7 +262,7 @@ class SessionTest {
         Player player = Mocks.player(playerId, "garbagemule");
         subject.playerJoin(player);
 
-        subject.complete();
+        subject.complete(Collections.emptySet());
 
         PlayerSessionStats actual = subject.getPlayerStats(playerId);
         assertThat(actual.conclusion, equalTo(PlayerConclusion.VICTORY));
@@ -281,7 +282,7 @@ class SessionTest {
         subject.start();
         subject.playerDeath(arena, corpse);
 
-        subject.complete();
+        subject.complete(Collections.emptySet());
 
         PlayerSessionStats actual = subject.getPlayerStats(corpseId);
         assertThat(actual.conclusion, equalTo(PlayerConclusion.DEFEAT));
@@ -305,7 +306,7 @@ class SessionTest {
 
     @Test
     void dontOverwriteConclusionOnEnd() {
-        subject.complete();
+        subject.complete(Collections.emptySet());
 
         subject.end();
 

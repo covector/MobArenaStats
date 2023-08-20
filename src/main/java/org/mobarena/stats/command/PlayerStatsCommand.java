@@ -9,14 +9,18 @@ import org.bukkit.entity.Player;
 import org.mobarena.stats.MobArenaStats;
 import org.mobarena.stats.store.PlayerStats;
 import org.mobarena.stats.store.StatsStore;
+import org.mobarena.stats.store.ClassStats;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 import static java.lang.String.format;
 import static org.bukkit.ChatColor.AQUA;
 import static org.bukkit.ChatColor.RESET;
 import static org.bukkit.ChatColor.YELLOW;
+
+import org.bukkit.Bukkit;
 
 @CommandInfo(
     name = "player-stats",
@@ -49,13 +53,19 @@ public class PlayerStatsCommand implements Command {
         plugin.getAsyncExecutor().execute(() -> {
             StatsStore store = plugin.getStatsStore();
             PlayerStats stats = store.getPlayerStats(name);
-            List<String> lines = Arrays.asList(
+            ArrayList<String> lines = new ArrayList<>(Arrays.asList(
                 format("Stats for player %s%s%s:", YELLOW, name, RESET),
                 format("- Total sessions: %s%d%s", AQUA, stats.totalSessions, RESET),
                 format("- Total duration: %s%d%s secs", AQUA, stats.totalSeconds, RESET),
                 format("- Total kills: %s%d%s", AQUA, stats.totalKills, RESET),
-                format("- Total waves: %s%d%s", AQUA, stats.totalWaves, RESET)
-            );
+                format("- Total waves: %s%d%s", AQUA, stats.totalWaves, RESET),
+                format("- Total wins: %s%d%s", AQUA, stats.totalWins, RESET),
+                "",
+                "Class Usage:"
+            ));
+            for (ClassStats classStats : stats.classStats) {
+                lines.add(format("- %s: %s%d%s", classStats.className, AQUA, classStats.totalSessions, RESET));
+            }
             messenger.tell(sender, String.join("\n", lines));
         });
 

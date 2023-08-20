@@ -293,7 +293,7 @@ class SessionListenerTest {
 
         subject.on(event);
 
-        verify(session).complete();
+        verify(session).complete(event.getSurvivors());
     }
 
     @Test
