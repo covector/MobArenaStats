@@ -50,7 +50,7 @@ class PlayerStatsCommandTest {
         String[] args = {};
         Messenger messenger = mock(Messenger.class);
         StatsStore store = mock(StatsStore.class);
-        PlayerStats stats = new PlayerStats(1, 2, 3, 4, 5, Collections.<ClassStats>emptyList());
+        PlayerStats stats = new PlayerStats(1, 2, 3, 4, 5, 6, 7, Collections.<ClassStats>emptyList());
         when(sender.getName()).thenReturn(name);
         when(am.getGlobalMessenger()).thenReturn(messenger);
         when(plugin.getStatsStore()).thenReturn(store);
@@ -71,7 +71,7 @@ class PlayerStatsCommandTest {
         String[] args = {name};
         Messenger messenger = mock(Messenger.class);
         StatsStore store = mock(StatsStore.class);
-        PlayerStats stats = new PlayerStats(1, 2, 3, 4, 5, Collections.<ClassStats>emptyList());
+        PlayerStats stats = new PlayerStats(1, 2, 3, 4, 5, 6, 7, Collections.<ClassStats>emptyList());
         when(am.getGlobalMessenger()).thenReturn(messenger);
         when(plugin.getStatsStore()).thenReturn(store);
         when(plugin.getAsyncExecutor()).thenReturn(Runnable::run);

@@ -58,6 +58,8 @@ public class PlayerStatsCommand implements Command {
                 format("- Total sessions: %s%d%s", AQUA, stats.totalSessions, RESET),
                 format("- Total duration: %s%d%s secs", AQUA, stats.totalSeconds, RESET),
                 format("- Total kills: %s%d%s", AQUA, stats.totalKills, RESET),
+                format("- Total damage done: %s%d%s", AQUA, stats.totalDamageDone, RESET),
+                format("- Total damage taken: %s%d%s", AQUA, stats.totalDamageTaken, RESET),
                 format("- Total waves: %s%d%s", AQUA, stats.totalWaves, RESET),
                 format("- Total wins: %s%d%s", AQUA, stats.totalWins, RESET),
                 "",

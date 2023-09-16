@@ -141,6 +141,8 @@ public class JdbcStatsStore implements StatsStore {
                 rs.getInt("total_sessions"),
                 rs.getLong("total_seconds"),
                 rs.getLong("total_kills"),
+                rs.getLong("total_dmg_done"),
+                rs.getLong("total_dmg_taken"),
                 rs.getLong("total_waves"),
                 rs.getInt("total_wins"),
                 classStats
